@@ -11,7 +11,7 @@ block content
             img.img-circle(src='{profile.image.url}', width='24')
           span
             | {profile.displayName}  
-            a(href={logout}) (logout) 
+            a(href="/oauth2/logout") Logout 
         else      
           a(href="/oauth2/authorize") Login
   .container-fluid(style="background:#dedede;")

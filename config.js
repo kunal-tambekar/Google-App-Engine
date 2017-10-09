@@ -5,7 +5,7 @@ var clientSecret = '8lhmKh6JFsV8R4rwHJRTKJ8P';
 var redirectUrl = 'https://8080-dot-3134072-dot-devshell.appspot.com/oauth2callback';
 
 var projectId = 'myvisiontestapp';
-var bucketName = 'myvisiontestapp.';
+var bucketName = 'myvisiontestapp.appspot.com';
 
 var credentialsApiKey = 'your-credentials-api-key';
 
