@@ -56,7 +56,7 @@ block content
                 if prettyprint
                   pre.prettyprint #{prettyprint}      
                 canvas#panel-canvas.canvas
-                script
+                script.
                   initCanvas(#{imageUrl}, #{response|s});
         if error
           .alert.alert-danger(role='alert') #{error}
