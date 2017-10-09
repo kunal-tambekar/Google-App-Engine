@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+    .container
+      .navbar-header
+        a.navbar-brand(href='/') Google Cloud Vision
+      p.navbar-text.navbar-right
+        if profile
+          if profile.image
+            img.img-circle(src='{profile.image.url}', width='24')
+          span
+            | {profile.displayName}  
+            a(href={logout}) (logout) 
+        else      
+          a(href="/oauth2/authorize") Login
+  .container-fluid(style="background:#dedede;")
+    .content
+      h3 Google Cloud Vision
+      h1= title
+      p Welcome to #{title}
+      if profile
+        .alert.alert-success
+          | Welcom {profile.displayName}
+      else    
+        .alert.alert-info
+          | Please 
+          strong
+            a(href='#') login
+          |  to continue
+  script(src='//code.jquery.com/jquery-2.2.0.min.js')
+  script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS', crossorigin='anonymous')
