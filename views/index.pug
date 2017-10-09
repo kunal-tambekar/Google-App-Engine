@@ -17,8 +17,8 @@ block content
   .container-fluid(style="background:#dedede;")
     .content
       h3 Google Cloud Vision
-      h1= profile
-      p Welcome to #{profile.image.url}
+      h1= prettyprint
+      p Response #{response}
       if profile
         .alert.alert-success
           | Welcome #{profile.displayName}
@@ -57,15 +57,15 @@ block content
                   pre.prettyprint #{prettyprint}      
                 canvas#panel-canvas.canvas
                 script.
-                  initCanvas(#{imageUrl}, #{response|s});
+                  initCanvas(imageUrl, response);
         if error
           .alert.alert-danger(role='alert') #{error}
-        //- if imageUrl
-        //-   .panel.panel-default
-        //-     .panel-heading
-        //-       h3.panel-title Output
-        //-     #panel-body.panel-body
-        //-       img(src=imageUrl, height='600', width='600')
+        if imageUrl
+          .panel.panel-default
+            .panel-heading
+              h3.panel-title Output
+            #panel-body.panel-body
+              img(src=imageUrl, height='600', width='600')
       else    
         .alert.alert-info
           | Please 
