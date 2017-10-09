@@ -49,17 +49,17 @@ block content
             button.btn.btn-success(type='submit') Submit
         if vision
           p= JSON.stringify(vision)
-          each obj in #{vision.prettyprint.responses.labelAnnotations}
+          each obj in labelAnnotations
             .panel.panel-default
               .panel-heading
                 h3.panel-title Output
               #panel-body.panel-body
                 p= obj
-                if obj.description
-                  pre.prettyprint #{vision.prettyprint}      
-                canvas#panel-canvas.canvas
-                script.
-                  initCanvas(#{vision.imageUrl}, #{vision.response});
+                //- if obj.description
+                //-   pre.prettyprint #{vision.prettyprint}      
+                //- canvas#panel-canvas.canvas
+                //- script.
+                //-   initCanvas(#{vision.imageUrl}, #{vision.response});
         if error
           .alert.alert-danger(role='alert') #{error}
         if vision
