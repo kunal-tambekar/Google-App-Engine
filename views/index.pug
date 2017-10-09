@@ -17,7 +17,7 @@ block content
   .container-fluid(style="background:#dedede;")
     .content
       h3 Google Cloud Vision
-      h1= #{vision.imageUrl}
+      h1= context.vision.imageUrl
       p Response #{vision.response}
       if profile
         .alert.alert-success
