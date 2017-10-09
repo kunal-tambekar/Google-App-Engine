@@ -7,7 +7,7 @@ var redirectUrl = 'https://8080-dot-3134072-dot-devshell.appspot.com/oauth2callb
 var projectId = 'myvisiontestapp';
 var bucketName = 'myvisiontestapp.appspot.com';
 
-var credentialsApiKey = 'your-credentials-api-key';
+var credentialsApiKey = 'AIzaSyA_Qz7ZmRs0szpnZk6zbBtC0SXh3ZYlATA';
 
 module.exports = {
   port: process.env.PORT || 8080,

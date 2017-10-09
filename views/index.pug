@@ -8,7 +8,7 @@ block content
       p.navbar-text.navbar-right
         if profile
           if profile.image
-            img.img-circle(src='#{profile.image.url}', width='24')
+            img.img-circle(src=profile.image.url, width='24')
           span
             | Hi #{profile.displayName}  
             a(href="/oauth2/logout") Logout 
@@ -17,8 +17,8 @@ block content
   .container-fluid(style="background:#dedede;")
     .content
       h3 Google Cloud Vision
-      //- h1= title
-      //- p Welcome to #{title}
+      h1= profile
+      p Welcome to #{profile.image.url}
       if profile
         .alert.alert-success
           | Welcome #{profile.displayName}
@@ -26,14 +26,46 @@ block content
           .form-group
             label(for='image') Image
             input#image.form-control(type='file', name='image')
+          if featureTypes
+            .form-group
+              label(for='imageType') Type of image feature:
+              select.form-control(name='imageType')
+                each val in featureTypes
+                  option= val
+            .form-group
+              label(for='maxResults') Max results:
+              select.form-control(name='maxResults')
+                option 1
+                option 2
+                option 3
+                option 4
+                option 5
+                option 6
+                option 7
+                option 8
+                option 9
+                option 10
           .form-group
             button.btn.btn-success(type='submit') Submit
-        if imageUrl
-          .panel.panel-default
-            .panel-heading
-              h3.panel-title Output
-            #panel-body.panel-body
-              img(src="#{imageUrl}", height='600', width='600')
+        if vision
+          each obj in vision
+            .panel.panel-default
+              .panel-heading
+                h3.panel-title Output
+              #panel-body.panel-body
+                if prettyprint
+                  pre.prettyprint #{prettyprint}      
+                canvas#panel-canvas.canvas
+                script
+                  initCanvas(#{imageUrl}, #{response|s});
+        if error
+          .alert.alert-danger(role='alert') #{error}
+        //- if imageUrl
+        //-   .panel.panel-default
+        //-     .panel-heading
+        //-       h3.panel-title Output
+        //-     #panel-body.panel-body
+        //-       img(src=imageUrl, height='600', width='600')
       else    
         .alert.alert-info
           | Please 

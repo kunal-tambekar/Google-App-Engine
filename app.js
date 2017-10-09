@@ -11,8 +11,12 @@ var config = require('./config');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var session = require('cookie-session');
+var cloudVisionClient = require('./lib/cloudVisionClient')(
+  config.gcloudVision
+);
 
 var app = express();
+
 
 // Configure the session and session storage.
 app.use(session({
@@ -45,7 +49,8 @@ var storageClient = require('./lib/storageClient')(
 
 // Configure routes (All in one place)
 app.use('/', require('./lib/routes')(
-  storageClient
+  storageClient,
+  cloudVisionClient
 ));
 // OR like this
 // app.use('/', index);
