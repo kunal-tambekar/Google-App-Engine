@@ -49,25 +49,25 @@ block content
             button.btn.btn-success(type='submit') Submit
         if vision
           p= JSON.stringify(vision)
-          each obj in vision
+          each obj in #{vision.prettyprint.responses.labelAnnotations}
             .panel.panel-default
               .panel-heading
                 h3.panel-title Output
               #panel-body.panel-body
                 p= obj
-                if obj.prettyprint
+                if obj.description
                   pre.prettyprint #{vision.prettyprint}      
                 canvas#panel-canvas.canvas
                 script.
-                  initCanvas(obj.imageUrl, obj.response);
+                  initCanvas(#{vision.imageUrl}, #{vision.response});
         if error
           .alert.alert-danger(role='alert') #{error}
-        //- if vision.imageUrl
-        //-   .panel.panel-default
-        //-     .panel-heading
-        //-       h3.panel-title Output
-        //-     #panel-body.panel-body
-        //-       img(src=vision.imageUrl, height='600', width='600')
+        if vision
+          .panel.panel-default
+            .panel-heading
+              h3.panel-title Output
+            #panel-body.panel-body
+              img(src=#{vision.imageUrl}, height='600', width='600')
       else    
         .alert.alert-info
           | Please 
