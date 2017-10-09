@@ -8,7 +8,7 @@ block content
       p.navbar-text.navbar-right
         if profile
           if profile.image
-            img.img-circle(src='{profile.image.url}', width='24')
+            img.img-circle(src='#{profile.image.url}', width='24')
           span
             | {profile.displayName}  
             a(href="/oauth2/logout") Logout 
@@ -21,7 +21,7 @@ block content
       p Welcome to #{title}
       if profile
         .alert.alert-success
-          | Welcom {profile.displayName}
+          | Welcome #{profile.displayName}
       else    
         .alert.alert-info
           | Please 
