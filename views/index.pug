@@ -17,7 +17,7 @@ block content
   .container-fluid(style="background:#dedede;")
     .content
       h3 Google Cloud Vision
-      h1= prettyprint
+      h1= vision
       p Response #{response}
       if profile
         .alert.alert-success
@@ -53,6 +53,7 @@ block content
               .panel-heading
                 h3.panel-title Output
               #panel-body.panel-body
+                p= obj
                 if prettyprint
                   pre.prettyprint #{prettyprint}      
                 canvas#panel-canvas.canvas
