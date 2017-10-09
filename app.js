@@ -38,8 +38,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var storageClient = require('./lib/storageClient')(
+  config.gcloud,
+  config.gcloudStorageBucket
+);
+
 // Configure routes (All in one place)
-app.use('/', require('./lib/routes')());
+app.use('/', require('./lib/routes')(
+  storageClient
+));
 // OR like this
 // app.use('/', index);
 // app.use('/users', users);

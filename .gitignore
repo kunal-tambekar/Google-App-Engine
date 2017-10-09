@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# OS generated files #
+.DS_Store
+
+# Other misc
+package-lock.json

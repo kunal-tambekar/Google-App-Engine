@@ -10,18 +10,30 @@ block content
           if profile.image
             img.img-circle(src='#{profile.image.url}', width='24')
           span
-            | {profile.displayName}  
+            | Hi #{profile.displayName}  
             a(href="/oauth2/logout") Logout 
         else      
           a(href="/oauth2/authorize") Login
   .container-fluid(style="background:#dedede;")
     .content
       h3 Google Cloud Vision
-      h1= title
-      p Welcome to #{title}
+      //- h1= title
+      //- p Welcome to #{title}
       if profile
         .alert.alert-success
           | Welcome #{profile.displayName}
+        form(action='/', method='post', enctype='multipart/form-data')
+          .form-group
+            label(for='image') Image
+            input#image.form-control(type='file', name='image')
+          .form-group
+            button.btn.btn-success(type='submit') Submit
+        if imageUrl
+          .panel.panel-default
+            .panel-heading
+              h3.panel-title Output
+            #panel-body.panel-body
+              img(src='#{imageUrl}', height='600', width='600')
       else    
         .alert.alert-info
           | Please 
