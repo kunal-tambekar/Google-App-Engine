@@ -55,9 +55,8 @@ VisionClient.prototype.detectImage = function(cloudStorageUri, featureType, maxR
         },
         features: [
           {
-            type: invert(this.featureTypes)[featureType] ||
-              featureType.TYPE_UNSPECIFIED,
-            maxResults: maxResults
+            type: featureType.LABEL_DETECTION,
+            maxResults: 5
           }
         ]
       }

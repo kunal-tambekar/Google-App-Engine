@@ -1,0 +1,71 @@
+extends ../base.pug
+
+block content
+  h3 Photos
+
+  a(href="/photos/add", class='btn btn-success btn-sm')
+    i.glyphicon.glyphicon-plus
+    span  Add Photo
+  
+  if !photos.length
+    h2(style="color:red;") No Photos found.
+  h1 Animals  
+  .row.well
+    each photo in photos
+      if photo.category=="Animals"
+        .col-sm-6.col-md-4.col-lg-4
+          .media
+            a(href=`/photos/${photo.id}`)
+              .media-left
+                  img(style="height:100px;" src=photo.imageUrl || "http://www.taxidermiamiguelruiz.es/components/com_easyblog/themes/wireframe/images/placeholder-image.png")
+              .media-body
+                //- h4= photo.category
+                p= photo.author
+                p= photo.labels
+  h1 Flowers  
+  .row.well
+    each photo in photos
+      if photo.category=="Flowers"
+        .col-sm-6.col-md-4.col-lg-4
+          .media
+            a(href=`/photos/${photo.id}`)
+              .media-left
+                  img(style="height:100px;" src=photo.imageUrl || "http://www.taxidermiamiguelruiz.es/components/com_easyblog/themes/wireframe/images/placeholder-image.png")
+              .media-body
+                //- h4= photo.category
+                p= photo.author
+                p= photo.labels
+                
+  h1 People             
+  .row.well
+    each photo in photos
+      if photo.category=="People"
+        .col-sm-6.col-md-4.col-lg-4
+          .media
+            a(href=`/photos/${photo.id}`)
+              .media-left
+                  img(style="height:100px;" src=photo.imageUrl || "http://www.taxidermiamiguelruiz.es/components/com_easyblog/themes/wireframe/images/placeholder-image.png")
+              .media-body
+                //- h4= photo.category
+                p= photo.author
+                p= photo.labels
+                
+  h1 Other             
+  .row.well
+    each photo in photos
+      if photo.category=="Others" || photo.category=="Other" || photo.category==""
+        .col-sm-6.col-md-4.col-lg-4
+          .media
+            a(href=`/photos/${photo.id}`)
+              .media-left
+                  img(style="height:100px;" src=photo.imageUrl || "http://www.taxidermiamiguelruiz.es/components/com_easyblog/themes/wireframe/images/placeholder-image.png")
+              .media-body
+                //- h4= photo.category
+                p= photo.author
+                p= photo.labels
+
+  if nextPageToken
+    nav
+      ul.pager
+        li
+          a(href=`?pageToken=${encodeURIComponent(nextPageToken)}`) More

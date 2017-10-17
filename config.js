@@ -1,38 +1,78 @@
+// Copyright 2017, Google, Inc.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 'use strict';
 
-var clientId = '489984240855-nesl58uubgvd1m3ck3mm3rj19cbs13nd.apps.googleusercontent.com';
-var clientSecret = '8lhmKh6JFsV8R4rwHJRTKJ8P';
-var redirectUrl = 'https://8080-dot-3134072-dot-devshell.appspot.com/oauth2callback';
+// Hierarchical node.js configuration with command-line arguments, environment
+// variables, and files.
+const nconf = module.exports = require('nconf');
+const path = require('path');
 
-var projectId = 'myvisiontestapp';
-var bucketName = 'myvisiontestapp.appspot.com';
+nconf
+  // 1. Command-line arguments
+  .argv()
+  // 2. Environment variables
+  .env([
+    'CLOUD_BUCKET',
+    'DATA_BACKEND',
+    'GCLOUD_PROJECT',
+    'MEMCACHE_URL',
+    'NODE_ENV',
+    'OAUTH2_CLIENT_ID',
+    'OAUTH2_CLIENT_SECRET',
+    'OAUTH2_CALLBACK',
+    'PORT',
+    'CLOUD_VISION_KEY',
+    'SECRET'
+  ])
+  // 3. Config file
+  .file({ file: path.join(__dirname, 'config.json') })
+  // 4. Defaults
+  .defaults({
+    // Typically you will create a bucket with the same name as your project ID.
+    CLOUD_BUCKET: 'myvisiontestapp.appspot.com',
 
-var credentialsApiKey = 'AIzaSyA_Qz7ZmRs0szpnZk6zbBtC0SXh3ZYlATA';
+    // dataBackend can be 'datastore', 'cloudsql', or 'mongodb'. Be sure to
+    // configure the appropriate settings for each storage engine below.
+    // If you are unsure, use datastore as it requires no additional
+    // configuration.
+    DATA_BACKEND: 'datastore',
 
-module.exports = {
-  port: process.env.PORT || 8080,
+    // This is the id of your project in the Google Cloud Developers Console.
+    GCLOUD_PROJECT: 'myvisiontestapp',
 
-  // Secret is used by sessions to encrypt the cookie.
-  secret: process.env.SESSION_SECRET || 'your-secret-here',
+    // Connection url for the Memcache instance used to store session data
+    MEMCACHE_URL: 'localhost:11211',
 
-  // The client ID and secret can be obtained by generating a new web
-  // application client ID on Google Developers Console.
-  oauth2: {
-    clientId: process.env.OAUTH_CLIENT_ID || clientId,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET || clientSecret,
-    redirectUrl: process.env.OAUTH2_CALLBACK || redirectUrl,
-    scopes: ['email', 'profile']
-  },
+    OAUTH2_CLIENT_ID: '489984240855-nesl58uubgvd1m3ck3mm3rj19cbs13nd.apps.googleusercontent.com',
+    OAUTH2_CLIENT_SECRET: '8lhmKh6JFsV8R4rwHJRTKJ8P',
+    OAUTH2_CALLBACK: 'http://localhost:8080/auth/google/callback',
 
-  // Google Developers Console Project Id.
-  gcloud: {
-    projectId: process.env.GCLOUD_PROJECT || projectId
-  },
+    PORT: 8080,
+    CLOUD_VISION_KEY: 'AIzaSyA_Qz7ZmRs0szpnZk6zbBtC0SXh3ZYlATA',
 
-  gcloudStorageBucket: process.env.CLOUD_BUCKET || bucketName,
-  dataBackend: 'datastore',
+    // Set this a secret string of your choosing
+    SECRET: 'RanDomStRinG'
+  });
 
-  gcloudVision: {
-    key: process.env.CLOUD_VISION_KEY || credentialsApiKey
+// Check for required settings
+checkConfig('GCLOUD_PROJECT');
+checkConfig('CLOUD_BUCKET');
+checkConfig('OAUTH2_CLIENT_ID');
+checkConfig('OAUTH2_CLIENT_SECRET');
+
+function checkConfig (setting) {
+  if (!nconf.get(setting)) {
+    throw new Error(`You must set ${setting} as an environment variable or in config.json!`);
   }
-};
+}
